@@ -1,5 +1,7 @@
 InfluxSrv:
   image: "tutum/influxdb:0.8.8"
+  volumes:
+    - "/data2/influxdb:/data:rw"
   ports:
     - "8083:8083"
     - "8086:8086"
@@ -21,7 +23,10 @@ cadvisor:
     - "8080:8080"
   command: "-storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086"
 grafana:
-  image: "grafana/grafana:latest"
+  image: "commarla/grafana:latest"
+  volumes:
+    - "/data2/grafana/var:/var/lib/grafana:rw"
+    - "/data2/grafana/etc:/etc/grafana:rw"
   ports:
     - "3000:3000"
   environment:
